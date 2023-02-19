@@ -2,7 +2,7 @@
 
 ![3d_animation_css](https://i.imgur.com/xFEVUYt.png)
 
-Primeiro eu havia feito sem javascript porém o HTML ficou imenso, o que me fez decidir usar Javascript para gerar divs em um loop.
+Primeiro eu havia feito uma versão mais simples sem javascript, porém o HTML ficou imenso, o que me fez decidir usar Javascript para gerar divs em um loop.
 
 Como passei a usar Javascript, aproveitei para tornar o projeto um pouco mais dinâmico.
 
