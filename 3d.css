@@ -1,0 +1,88 @@
+/*Animação*/
+@keyframes moveDown {
+    to {
+      padding-top: 25px; 
+    }
+  }
+
+  #test {
+    position: relative;
+    left: 42%;
+    top: 50px;
+  }
+  
+  /*Div "mãe" de todos os cubos*/
+  #boxes {
+    position: relative;
+    top: 50px;
+    left: 40%;
+  }
+  /*Algumas propriedades comuns para todos os cubos*/
+  .box {
+    position: absolute;
+    /*border-style: dotted;*/
+    height: 30px;
+    width: 100px;
+  
+    animation-duration: 1.0s;
+    animation-name: moveDown;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+  
+  /*Posição das sessões com efeito 3d de cada e todo cubo*/
+  .boxLeft {
+    position: relative;
+    top: -208px;
+  }
+  .boxRight {
+    position: relative;
+    top: -104px;
+  }
+  .boxTop img {
+    margin-top: -35px;
+    width: 100px;
+    height: 100px;
+    background-color: rgb(136, 172, 214);
+    clip-path: polygon(50% 30%, 100% 50%, 50% 70%, 0% 50%);
+  }
+  .boxRight img {
+    width: 100px;
+    height: 100px;
+    background-color: rgb(212, 196, 140);
+    clip-path: polygon(50% 70%, 100% 50%, 100% 80%, 50% 100%);
+  }
+  .boxLeft img {
+    width: 100px;
+    height: 100px;
+    background-color: rgb(126, 102, 138);
+    clip-path: polygon(0 50%, 50% 70%, 50% 100%, 0 80%);
+  }
+    
+  body {
+    background-color: rgb(65, 64, 82);
+    font-family: system-ui, sans-serif;
+  }
+
+  nav {
+    align-items: center;
+    padding: 2px;
+    gap: 2px;
+  }
+  
+  button {
+    background-color: rgb(136, 172, 214);
+    display: inline-block;
+    min-width: 9rem;
+    padding: 5px;
+    margin: 1px;
+    border-radius: 0.3rem;
+    border: solid 1px rgb(212, 196, 140);
+    text-align: center;
+    text-decoration: none;
+    color: rgb(65, 64, 82);
+    transition: 0.5s;
+  }
+  button:hover {
+    background-color: rgb(212, 196, 140);
+  }  
