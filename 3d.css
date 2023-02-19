@@ -44,7 +44,7 @@
     width: 100px;
     height: 100px;
     background-color: rgb(136, 172, 214);
-    clip-path: polygon(50% 30%, 100% 50%, 50% 70%, 0% 50%);
+    clip-path: polygon(50% 30%, 100% 50%, 50% 80%, 0% 50%);
   }
   .boxRight img {
     width: 100px;
