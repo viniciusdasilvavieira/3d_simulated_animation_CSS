@@ -15,4 +15,5 @@ Foi um desafio organizar os valores das paddings colocadas dinamicamente. Como Ã
 Os cubos em si foram feitos com CSS clip path, que Ã© nativo de CSS.
 
 Rascunhos
+
 ![scrap](https://i.imgur.com/2MFqdfR.png)
