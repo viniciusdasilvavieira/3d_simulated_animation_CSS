@@ -10,4 +10,4 @@ Acabou sendo um bom exercício de lógica, e ajudou bastante eu ter construído 
 
 Foi um desafio organizar os valores das paddings colocadas dinamicamente. Como é provavelmente evidente no código.
 
-Os cubos em si foram feitos com CSS clip path.
+Os cubos em si foram feitos com CSS clip path, que é nativo de CSS.
