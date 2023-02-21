@@ -8,111 +8,130 @@
   </head>
   <body>
     <nav>
-        <button id="moreBtn" onclick="moreBoxes()">Add boxes</button>
-        <button id="lessBtn" onclick="lessBoxes()">Remove boxes</button>
-        <button id="animationBtn" onclick="animChange()">Change animation</button>
+        <button id="moreBtn" onclick="moreBoxes()">More cubes</button>
+        <button id="lessBtn" onclick="lessBoxes()">Less cubes</button>
+        <button id="moreBumpsBtn" onclick="moreVariation()">More motion</button>
+        <button id="lessBumpsBtn" onclick="lessVariation()">Less motion</button>
+        <button id="animationBtn" onclick="animChange()">Change style</button>
 
     </nav>
     <div id="boxes"></div>
 
     <script>
-        let choice = 1;
-        let animation = 1;
-        let amount = 5;
 
-        function moreBoxes(){
-            if (amount<9) {
-                amount++
-                deleteBoxes();
-                addRow(amount);
-            }            
-        }
-        function lessBoxes(){
-            if (amount>1){
-                amount--
-                deleteBoxes();
-                addRow(amount);
-            }
-        }
+    let choice = 1;
+    let animation = 1;
+    let variation = 2;
+    let amount = 5;
 
-        function animChange(){
-            if (animation < 3)  animation++;
-            else animation = 1;
+    function moreBoxes(){
+        if (amount<9) {
+            amount++
+            deleteBoxes();
+            create(amount);
+        }            
+    }
+    function lessBoxes(){
+        if (amount>1){
+            amount--
+            deleteBoxes();
+            create(amount);
+        }
+    }
+    function animChange() {
+        if (animation < 4) animation++;
+        else animation = 1;
+        deleteBoxes();
+        create(amount);
+      }
+    function moreVariation(){
+        if (variation < 5)
+        {
+            variation++;
+            document.documentElement.style
+            .setProperty('--variation', (variation*10)+'px');
 
             deleteBoxes();
-            addRow(amount);
+            create(amount);
+        }              
+    }        
+    function lessVariation(){
+        if (variation > 1)
+        {
+            variation--;
+            document.documentElement.style
+            .setProperty('--variation', (variation*10)+'px');
+            
+            deleteBoxes();
+            create(amount);
+        }             
+    }        
+    function deleteBoxes(){
+        let  boxes = document.getElementsByClassName("box");
+        while (boxes.length>0){
+            boxes[0].parentNode.removeChild(boxes[0])
         }
-        function deleteBoxes(){
-            let  boxes = document.getElementsByClassName("box");
-            while (boxes.length>0){
-                boxes[0].parentNode.removeChild(boxes[0])
+    }
+
+    create(amount);
+    function create(amount) {   
+        let objGroup = [] //Grupo de objetos/cubos
+
+        let n = amount*amount;
+        let maxLenght = amount;
+
+        let alternateBool = 1;
+        for (let i=1; i < n+1; i++)
+        {
+            let obj = {
+                //used to set the position of each box
+                top: 0,
+                left: 0,
+                //used to play around with animation
+                topOrder: 0,
+                leftOrder: 0,
+                randomOrder: Math.random(),
+                alternatingOrder: alternateBool
             }
+            alternateBool = !alternateBool;
+            objGroup.push(obj)
         }
+        innerGroups = []
+        let arrCopy = objGroup.slice(0);
 
-      addRow(amount);
-      function addRow(amount) {   
-        let verticalGroups = [1,4,9,16,25,36,49]
-        let objGroup = []
+        for (let blockVal=1; blockVal<maxLenght+1; blockVal++) innerGroups.push(arrCopy.splice(0, blockVal));
+        for (let blockVal= maxLenght-1; blockVal>0; blockVal--) innerGroups.push(arrCopy.splice(0, blockVal))
 
-        createNew(amount*amount, amount)
-        //createNew(verticalGroups[5],7)  ///////
-        function createNew( n, maxLenght)
-        {  
-            for (let i=1; i < n+1; i++)
+        // organização até este momento (ex): [ [obj1], [obj2,obj3], [obj4,obj5,obj6], [obj7,obj8], [obj9] ]
+        /*iterar sabendo que é sempre array e iterar dentro, levando em consideração o group, e o innerPosition*/
+        let counterTop = -20;
+        for (let group = 0; group<innerGroups.length;group++)
+        {
+            let arr = innerGroups[group];
+            let groupSize = innerGroups[group].length;
+            let left = 0;     
+            if (groupSize>1)
             {
-                let obj = {
-                    //used to set the position of each box
-                    top: 0,
-                    left: 0,
-                    //used to play around with animation
-                    topOrder: 0,
-                    leftOrder: 0,
-                    randomOrder: Math.random()
-                }
-                objGroup.push(obj)
+                let groupMinus1 = groupSize-1
+                left = -Math.abs(groupMinus1 * 50);
+            }  
+            for (let innerPos = 0; innerPos< arr.length; innerPos++)
+            {
+                //aqui eu sei que grupo faz parte e itero na posição do subgrupo
+                let obj = innerGroups[group][innerPos];
+                obj.top = counterTop;
+                obj.left = left;
+                left = left + 100;
+
+                obj.topOrder = innerGroups[group].length;
+                obj.leftOrder = innerPos;
             }
-            innerGroups = [] //maxLenght size
-            let arrCopy = objGroup.slice(0);
-
-            for (let blockVal=1; blockVal<maxLenght+1; blockVal++) //maxLenght is 3
-            {
-                innerGroups.push(arrCopy.splice(0, blockVal))
-            }
-            for (let blockVal= maxLenght-1; blockVal>0; blockVal--)
-            {
-                innerGroups.push(arrCopy.splice(0, blockVal))
-            }           
-// organização até este momento: [ [obj1], [obj2,obj3], [obj4,obj5,obj6], [obj7,obj8], [obj9] ]
-/*iterar sabendo que é sempre array e iterar dentro, levando em consideração o group, e o innerPosition*/
-
-            let counterTop = -20;
-            for (let group = 0; group<innerGroups.length;group++)
-            {
-                let arr = innerGroups[group]
-                let groupSize = innerGroups[group].length
-                let left = 0;     
-                if (groupSize>1)
-                {
-                    let groupMinus1 = groupSize-1
-                    left = -Math.abs(groupMinus1 * 50);
-                }  
-                for (let innerPos = 0; innerPos< arr.length; innerPos++)
-                {
-                    //aqui eu sei que grupo faz parte e itero na posição do subgrupo
-                    let obj = innerGroups[group][innerPos]
-                    obj.top = counterTop;
-                    obj.left = left;
-                    left = left + 100;
-
-                    obj.topOrder = innerGroups[group].length;
-                    obj.leftOrder = innerPos;
-                }
-                counterTop = counterTop+20;
-            }
+            counterTop = counterTop+20;
         }
 
         //finalmente criando os blocos
-        for (let i = 0; i < objGroup.length; i++) {
+        for (let i = 0; i < objGroup.length; i++)
+        {
             let div = document.createElement('div');
             div.className = 'box';
             div.innerHTML = `
@@ -126,20 +145,30 @@
                 <div class="boxLeft"><img /></div>
                 </div>
             </div>`;
+            let topOrder = objGroup[i].topOrder;
+            let leftOrder = objGroup[i].leftOrder;
+            let randomOrder = objGroup[i].randomOrder;
+            let alternatingOrder = objGroup[i].alternatingOrder;
+            if (alternatingOrder) alternatingOrder = 0.4;
+
             switch (animation) {
                 case 1:
-                    div.style.animationDelay = "0."+objGroup[i].topOrder+"s";
-                    break;
+                div.style.animationDelay = '0.' + topOrder + 's';
+                break;
                 case 2:
-                    div.style.animationDelay = "0."+objGroup[i].leftOrder+"s";
-                    break;
+                div.style.animationDelay = '0.' + leftOrder + 's';
+                break;
                 case 3:
-                    div.style.animationDelay = objGroup[i].randomOrder+"s";
-                    break;
+                div.style.animationDelay = alternatingOrder + 's';
+                break;
+                case 4:
+                div.style.animationDelay = randomOrder + 's';
+                break;
             }
             document.getElementById('boxes').appendChild(div);
         }
-      }
+    }
+
     </script>
   </body>
 </html>
