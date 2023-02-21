@@ -1,17 +1,13 @@
 /*Animação*/
+:root {
+  --variation: 30px;
+}
 @keyframes moveDown {
     to {
-      padding-top: 25px; 
+      padding-top: var(--variation);
     }
   }
 
-  #test {
-    position: relative;
-    left: 42%;
-    top: 50px;
-  }
-  
-  /*Div "mãe" de todos os cubos*/
   #boxes {
     position: relative;
     top: 50px;
@@ -20,11 +16,10 @@
   /*Algumas propriedades comuns para todos os cubos*/
   .box {
     position: absolute;
-    /*border-style: dotted;*/
     height: 30px;
     width: 100px;
   
-    animation-duration: 1.0s;
+    animation-duration: 0.7s;
     animation-name: moveDown;
     animation-iteration-count: infinite;
     animation-direction: alternate;
@@ -73,7 +68,7 @@
   button {
     background-color: rgb(136, 172, 214);
     display: inline-block;
-    min-width: 9rem;
+    min-width: 120px;
     padding: 5px;
     margin: 1px;
     border-radius: 0.3rem;
@@ -81,6 +76,7 @@
     text-align: center;
     text-decoration: none;
     color: rgb(65, 64, 82);
+    font-weight: 800;
     transition: 0.5s;
   }
   button:hover {
